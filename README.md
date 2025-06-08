@@ -1,16 +1,23 @@
-## Hi there 👋
+# Personal Website
 
-<!--
-**CrabopuluS/CrabopuluS** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+This repository contains a simple multi-page website built with React, Tailwind CSS and a Node.js backend.
 
-Here are some ideas to get you started:
+## Getting Started
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+```bash
+# Install client dependencies
+cd client
+npm install
+
+# Build client
+npm run build
+
+# Install server dependencies
+cd ../server
+npm install
+
+# Start the server
+npm start
+```
+
+The server serves the built React app and exposes a sample API endpoint at `/api/hello`.
