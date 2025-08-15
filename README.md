@@ -1,23 +1,13 @@
-# Personal Website
 
-This repository contains a simple multi-page website built with React, Tailwind CSS and a Node.js backend.
+# Telegram FAQ Bot — MVP (кнопки + поиск по БД)
 
-## Getting Started
+Минимально жизнеспособный бот-справочник: кнопки навигации, поиск по ключевым словам (SQLite FTS5), список релевантных вопросов с кликабельными кнопками и показ ответов. Поддерживает загрузку CSV админом прямо в чат (как документ).
 
+## Быстрый старт
 ```bash
-# Install client dependencies
-cd client
-npm install
-
-# Build client
-npm run build
-
-# Install server dependencies
-cd ../server
-npm install
-
-# Start the server
-npm start
+python -m venv .venv && source .venv/bin/activate  # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+cp .env.example .env  # заполните значения
+python import_csv.py
+python bot.py
 ```
-
-The server serves the built React app and exposes a sample API endpoint at `/api/hello`.
