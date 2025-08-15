@@ -38,19 +38,18 @@ def _fts_query_from_text(text: str) -> str:
     return ""
   return " OR ".join(f"{t}*" for t in terms[:8])
 
-async def search(text: str, limit: int = 5) -> List[Dict[str, Any]]:
-  q = _fts_query_from_text(text)
-  if not q:
-    return []
-  sql_ranked = """
-    SELECT f.id, f.question, f.answer,
-           bm25(faq_fts) AS rank
-    FROM faq_fts
-    JOIN faq f ON f.id = faq_fts.rowid
-    WHERE faq_fts MATCH ?
-    ORDER BY rank
-    LIMIT ?;
-  """
+async def search(text: str, limit: int = 5):
+    q = (text or "").strip().lower()
+    if not q: return []
+    async with aiosqlite.connect(DB_PATH) as db:
+        db.row_factory = aiosqlite.Row
+        # Простой LIKE по question/answer
+        rows = await db.execute_fetchall(
+            "SELECT id, question, answer FROM faq WHERE lower(question) LIKE ? OR lower(answer) LIKE ? LIMIT ?",
+            (f"%{q}%", f"%{q}%", limit)
+        )
+        return [dict(r) for r in rows]
+
   sql_fallback = """
     SELECT f.id, f.question, f.answer
     FROM faq_fts
